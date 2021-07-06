@@ -1,0 +1,12 @@
+main{
+    min-height: 80vh;
+}
+.ml-auto{
+    margin-left: auto !important;
+}
+h4{
+    padding: 1rem;
+}
+.rating span{
+    margin: 0.1rem;
+}
