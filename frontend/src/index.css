@@ -1,12 +1,17 @@
-main{
-    min-height: 80vh;
+main {
+	min-height: 80vh;
 }
-.ml-auto{
-    margin-left: auto !important;
+h4 {
+	padding: 1rem;
 }
-h4{
-    padding: 1rem;
+.rating span {
+	margin: 0.1rem;
 }
-.rating span{
-    margin: 0.1rem;
+
+/* Bootstrap css alter */
+.ml-auto {
+	margin-left: auto !important;
+}
+.btn-block {
+	width: 100% !important;
 }
