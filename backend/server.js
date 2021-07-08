@@ -1,10 +1,25 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 import products from './data/products.js';
 
 dotenv.config();
 const app = express();
 
+const db = async () => {
+	try {
+		let success = await mongoose.connect(process.env.MONGODB_URI, {
+			useCreateIndex: true,
+			useFindAndModify: true,
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		});
+		if (success) console.log('Mongo DB Conneted Successfully!');
+	} catch (err) {
+		console.log('MONGO DB ERROR', err);
+	}
+};
+db();
 app.get('/api/products', (req, res) => {
 	res.json(products);
 });
