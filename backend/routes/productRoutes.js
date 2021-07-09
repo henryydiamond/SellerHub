@@ -11,8 +11,6 @@ router.get(
 	asyncHandler(async (req, res) => {
 		const products = await Product.find({});
 		res.json(products);
-		// return products;
-		console.log(res.statusCode);
 	})
 );
 // @desc 	Fetch single product
