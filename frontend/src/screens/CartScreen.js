@@ -10,7 +10,7 @@ import {
 	Button,
 	Card,
 } from 'react-bootstrap';
-import { addToCart } from '../actions/cartAction';
+import { addToCart, removeFromCart } from '../actions/cartAction';
 import Message from '../components/Message';
 
 const CartScreen = ({ match, location, history }) => {
@@ -28,7 +28,7 @@ const CartScreen = ({ match, location, history }) => {
 	}, [dispatch, productId, qty]);
 
 	const removeFromProduct = id => {
-		console.log(id);
+		dispatch(removeFromCart(id));
 	};
 	const checkoutHandeler = () => {
 		console.log('Check');
@@ -73,7 +73,7 @@ const CartScreen = ({ match, location, history }) => {
 									<Col md={2}>
 										<Button
 											variant='light'
-											onClick={removeFromProduct(item.product)}
+											onClick={() => removeFromProduct(item.product)}
 										>
 											<i className='fas fa-trash' />
 										</Button>
