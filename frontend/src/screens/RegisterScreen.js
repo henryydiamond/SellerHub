@@ -18,6 +18,7 @@ const RegisterScreen = ({ location, history }) => {
 
 	const userRegister = useSelector(state => state.userRegister);
 	const { loading, error, userInfo } = userRegister;
+	console.log(error);
 
 	useEffect(() => {
 		if (userInfo) {
