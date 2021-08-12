@@ -3,8 +3,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Spinner from '../components/Spinner';
-import { getUserDetail } from '../actions/userActions';
-import FormContainer from '../components/FormContainer';
+import { getUserDetails, updateUserProfile } from '../actions/userActions';
 
 const ProfileScreen = ({ location, history }) => {
 	const [email, setEmail] = useState('');
@@ -13,30 +12,33 @@ const ProfileScreen = ({ location, history }) => {
 	const [confirmpassword, setConfirmPassword] = useState('');
 	const [message, setMessage] = useState('');
 	const dispatch = useDispatch();
-
 	const userDetails = useSelector(state => state.userDetails);
 	const { loading, error, user } = userDetails;
 	const userLogin = useSelector(state => state.userLogin);
 	const { userInfo } = userLogin;
+	const userUpdateProfile = useSelector(state => state.userUpdateProfile);
+	const { success } = userUpdateProfile;
 
 	useEffect(() => {
 		if (!userInfo) {
 			history.push('/login');
 		} else {
 			if (!user.name) {
-				dispatch(getUserDetail('profile'));
+				dispatch(getUserDetails('profile'));
 			} else {
 				setName(user.name);
 				setEmail(user.email);
 			}
 		}
 	}, [dispatch, history, userInfo, user]);
+
 	const submitHandler = e => {
 		e.preventDefault();
 		if (confirmpassword !== password) {
 			setMessage('Passwords do not match ');
 		} else {
 			// Dispatch Update profile
+			dispatch(updateUserProfile({ id: user._id, name, email, password }));
 		}
 	};
 	return (
@@ -45,6 +47,7 @@ const ProfileScreen = ({ location, history }) => {
 				<h2>User Profile</h2>
 				{message && <Message variant='danger' children={message} />}
 				{error && <Message variant='danger' children={error} />}
+				{success && <Message variant='success' children='Profile updated' />}
 				{loading && <Spinner />}
 				<Form onSubmit={submitHandler}>
 					<Form.Group controlId='name'>
