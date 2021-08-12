@@ -22,3 +22,6 @@ h2 {
 .btn-block {
 	width: 100% !important;
 }
+.btn {
+	margin-top: 2vh;
+}
