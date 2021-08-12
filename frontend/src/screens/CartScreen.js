@@ -31,7 +31,7 @@ const CartScreen = ({ match, location, history }) => {
 		dispatch(removeFromCart(id));
 	};
 	const checkoutHandeler = () => {
-		history.push('/login?redirect=shiping');
+		history.push('/login?redirect=shipping');
 	};
 
 	return (
