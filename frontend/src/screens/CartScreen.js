@@ -10,7 +10,7 @@ import {
 	Button,
 	Card,
 } from 'react-bootstrap';
-import { addToCart, removeFromCart } from '../actions/cartAction';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 import Message from '../components/Message';
 
 const CartScreen = ({ match, location, history }) => {
