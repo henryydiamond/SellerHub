@@ -1,8 +1,9 @@
 import asyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
+import User from '../models/userModel.js';
 
 // @desc 	Create new order
-// @route 	GET /api/orders
+// @route 	POST /api/orders
 // @access 	Private
 export const addOrderItems = asyncHandler(async (req, res) => {
 	const {
@@ -32,5 +33,25 @@ export const addOrderItems = asyncHandler(async (req, res) => {
 		});
 		const createdOrder = await order.save();
 		res.status(201).json(createdOrder);
+	}
+});
+
+// @desc 	GET Order by ID
+// @route 	GET /api/orders/:id
+// @access 	Private
+export const getOrderById = asyncHandler(async (req, res) => {
+	const order = await Order.findById(req.params.id).populate(
+		'user',
+		'name email'
+	);
+
+	if (order && order.user._id.toString() !== req.user._id.toString()) {
+		res.status(401);
+		throw new Error('Unauthorized Action');
+	} else if (order) {
+		res.json(order);
+	} else {
+		res.status(404);
+		throw new Error('No order found');
 	}
 });
