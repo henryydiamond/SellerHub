@@ -26,6 +26,7 @@ const OrderScreen = ({ match }) => {
 		const addDecimal = num => {
 			return (Math.round(num * 100) / 100).toFixed(2);
 		};
+
 		order.itemsPrice = addDecimal(
 			order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
 		);
@@ -101,7 +102,9 @@ const OrderScreen = ({ match }) => {
 								{order.paymentMethod}
 							</p>
 							{order.isPaid ? (
-								<Message variant='success'>Paid on {order.paidAt}</Message>
+								<Message variant='success'>
+									Paid on {order.paidAt.substring(0, 10)}
+								</Message>
 							) : (
 								<Message variant='danger'>Not Paid</Message>
 							)}
