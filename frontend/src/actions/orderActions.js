@@ -80,7 +80,7 @@ export const payOrder =
 				},
 			};
 			const { data } = await axios.put(
-				`/api/orders/${orderId}`,
+				`/api/orders/${orderId}/pay`,
 				paymentResult,
 				config
 			);
