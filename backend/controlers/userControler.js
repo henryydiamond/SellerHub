@@ -96,3 +96,11 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
 		token: generateToken(updatedUser._id),
 	});
 });
+
+// @desc        Get all users
+// @route       Get /api/users
+// @access      Private/Admin
+export const getUsers = asyncHandler(async (req, res) => {
+	const users = await User.find({});
+	res.json(users);
+});

@@ -25,4 +25,13 @@ const protect = asyncHandler(async (req, res, next) => {
 		throw new Error('No token, unauthorized');
 	}
 });
-export default protect;
+
+const isAdmin = (req, res, next) => {
+	if (req.user && req.user.isAdmin) {
+		next();
+	} else {
+		res.status(401);
+		throw new Error('Unauthorized! Please, Sign in as an administrator');
+	}
+};
+export { protect, isAdmin };
