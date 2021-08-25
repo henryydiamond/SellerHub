@@ -35,7 +35,7 @@ const ProfileScreen = ({ location, history }) => {
 		if (!userInfo) {
 			history.push('/login');
 		} else {
-			if (!user.name) {
+			if (!user || !user.name || success) {
 				dispatch(getUserDetails('profile'));
 				dispatch(listUserOrders());
 			} else {
