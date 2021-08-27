@@ -15,7 +15,7 @@ const UserListScreen = ({ history }) => {
 	const { userInfo } = userLogin;
 
 	const userDelete = useSelector(state => state.userDelete);
-	const { success: successDelete, error: userDeleteError } = userDelete;
+	const { success: successDelete } = userDelete;
 
 	useEffect(() => {
 		if (userInfo && userInfo.isAdmin) {
@@ -65,7 +65,7 @@ const UserListScreen = ({ history }) => {
 									)}{' '}
 								</td>
 								<td>
-									<LinkContainer to={`/users/${user._id}/edit`}>
+									<LinkContainer to={`/admin/user/${user._id}/edit`}>
 										<Button variant='light' className='btn-sm'>
 											<i className='fas fa-edit' />
 										</Button>
