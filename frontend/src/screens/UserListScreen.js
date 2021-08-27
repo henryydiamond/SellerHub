@@ -4,7 +4,7 @@ import { Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Spinner from '../components/Spinner';
-import { listUsers } from '../actions/userActions';
+import { listUsers, deleteUser } from '../actions/userActions';
 
 const UserListScreen = ({ history }) => {
 	const dispatch = useDispatch();
@@ -14,16 +14,21 @@ const UserListScreen = ({ history }) => {
 	const userLogin = useSelector(state => state.userLogin);
 	const { userInfo } = userLogin;
 
+	const userDelete = useSelector(state => state.userDelete);
+	const { success: successDelete, error: userDeleteError } = userDelete;
+
 	useEffect(() => {
 		if (userInfo && userInfo.isAdmin) {
 			dispatch(listUsers());
 		} else {
 			history.push('/');
 		}
-	}, [dispatch, history]);
+	}, [dispatch, history, userInfo, successDelete]);
 
 	const deleteHandler = id => {
-		console.log('DELETED', id);
+		if (window.confirm('Are you sure you want to delete this user?')) {
+			dispatch(deleteUser(id));
+		}
 	};
 
 	return (
@@ -69,6 +74,7 @@ const UserListScreen = ({ history }) => {
 										variant='danger'
 										className='btn-sm'
 										onClick={() => deleteHandler(user._id)}
+										disabled={user.isAdmin}
 									>
 										<i className='fas fa-trash' />
 									</Button>
