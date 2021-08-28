@@ -18,6 +18,9 @@ h2 {
 a {
 	text-decoration: inherit;
 }
+.createBtn {
+	float: right;
+}
 /* Bootstrap css alter */
 .ml-auto {
 	margin-left: auto !important;
