@@ -1,4 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import jwtDecode from 'jwt-decode';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import {
@@ -63,6 +64,16 @@ const initialState = {
 	},
 	userLogin: { userInfo: userInfoFromStorage },
 };
+
+if (userInfoFromStorage && userInfoFromStorage.token) {
+	const decodedToken = jwtDecode(userInfoFromStorage.token);
+	const expiredAt = new Date(decodedToken.exp * 1000);
+
+	if (new Date() > expiredAt) {
+		localStorage.removeItem('userInfo');
+		window.location.href = '/login';
+	}
+}
 
 const middleware = [thunk];
 
