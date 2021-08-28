@@ -56,7 +56,7 @@ export const productDetailReducer = (
 	}
 };
 
-export const productDeleteReducer = (state = { product: {} }, action) => {
+export const productDeleteReducer = (state = {}, action) => {
 	switch (action.type) {
 		case PRODUCT_DELETE_REQUEST:
 			return {
@@ -72,8 +72,6 @@ export const productDeleteReducer = (state = { product: {} }, action) => {
 				loading: false,
 				error: action.payload,
 			};
-		case PRODUCT_DELETE_RESET:
-			return {};
 
 		default:
 			return state;
