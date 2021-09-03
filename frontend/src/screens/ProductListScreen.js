@@ -14,7 +14,11 @@ const ProductListScreen = ({ history, match }) => {
 	const { loading, products, error } = productList;
 
 	const productDelete = useSelector(state => state.productDelete);
-	const { success: successDelete } = productDelete;
+	const {
+		success: successDelete,
+		loading: loadingDelete,
+		error: errorDelete,
+	} = productDelete;
 
 	const userLogin = useSelector(state => state.userLogin);
 	const { userInfo } = userLogin;
@@ -49,7 +53,8 @@ const ProductListScreen = ({ history, match }) => {
 					</Button>
 				</Col>
 			</Row>
-
+			{loadingDelete && <Spinner />}
+			{errorDelete && <Message variant='danger' children={errorDelete} />}
 			{loading ? (
 				<Spinner />
 			) : error ? (
