@@ -86,6 +86,31 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc 	Update Order to Delivered
+// @route 	PUT /api/orders/:id/deliver
+// @access 	Private/isAdmin
+export const updateOrderToDelivered = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+  if (
+    order &&
+    order.user._id.toString() !== req.user._id.toString() &&
+    req.user &&
+    !req.user.isAdmin
+  ) {
+    res.status(401);
+    throw new Error("Unauthorized Action");
+  } else if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+
+    const updatedOrder = await order.save();
+    res.json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error("No order found");
+  }
+});
+
 // @desc 	GET loggin user orders
 // @route 	get /api/orders/myorder
 // @access 	Private
