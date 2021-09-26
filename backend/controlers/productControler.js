@@ -107,13 +107,9 @@ export const createProductReview = asyncHandler(async (req, res) => {
       (r) => r.user.toString() === req.user._id.toString()
     );
 
-    console.log('PRODUCT', product.reviews);
-
-    console.log('alredyReviwed', alredyReviwed);
-
     if (alredyReviwed) {
       res.status(400);
-      throw new Error('Product already reviewed');
+      throw new Error('You already reviewed this product');
     }
 
     const review = {
