@@ -108,7 +108,7 @@ export const updateProduct = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc 	Create new review
+// @desc 	  Create new review
 // @route 	POST /api/products/:id/reviews
 // @access 	Private
 export const createProductReview = asyncHandler(async (req, res) => {
@@ -145,4 +145,12 @@ export const createProductReview = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error('Product not found');
   }
+});
+
+// @desc 	  Get top rated product
+// @route   GET /api/products/top
+// @access 	Private
+export const getTopProduct = asyncHandler(async (req, res) => {
+  const products = await Product.find({}).sort({ rating: -1 }).limit(5);
+  res.json(products);
 });
